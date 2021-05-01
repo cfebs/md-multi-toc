@@ -4,14 +4,18 @@
 md-multi-toc [-update FILE.md] file1.md file2.md
 ```
 
+<!-- ts -->
+## ./README.md
+* [md-multi-toc](./README.md#md-multi-toc)
+    * [./README.md](./README.md#readme-md)
+    * [Motivation](./README.md#motivation)
+<!-- te -->
+
 If `-update` is passed, will update `FILE.md` in place with a table of contents
 between the markers
 
 ```
 <!-- ts -->
-## ./README.md 
-* [md-multi-toc](./README.md#md-multi-toc)
-    * [Motivation](./README.md#motivation)
 <!-- te -->
 ```
 
