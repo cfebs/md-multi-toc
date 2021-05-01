@@ -55,6 +55,11 @@ func main() {
 		}
 	}
 
+	if flagUpdateFile == "" {
+		fmt.Print(toc.String())
+		return
+	}
+
 	if flagUpdateFile != "" {
 		file, err := os.Open(flagUpdateFile)
 		if err != nil {

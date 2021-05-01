@@ -17,6 +17,10 @@ var md goldmark.Markdown
 
 func init() {
 	md = goldmark.New()
+
+	slug.CustomSub = map[string]string{
+		".": "",
+	}
 }
 
 func ParseFile(f string) (gm_ast.Node, []byte, error) {
