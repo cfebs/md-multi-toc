@@ -45,7 +45,12 @@ func parseFile(f string) (gm_ast.Node, []byte, error) {
 	// return nil
 }
 
-type Headers []string
+type Header struct {
+	Level int
+	Text  []byte
+}
+
+type Headers []*Header
 
 func extractHeaders(doc gm_ast.Node, source []byte, maxLevel int) (Headers, error) {
 	var headers Headers
@@ -53,8 +58,9 @@ func extractHeaders(doc gm_ast.Node, source []byte, maxLevel int) (Headers, erro
 		if entering {
 			switch t := n.(type) {
 			case *gm_ast.Heading:
+				h := &Header{Level: t.Level, Text: t.Text(source)}
+				headers = append(headers, h)
 				// fmt.Printf("%#v \n", source)
-				fmt.Printf("%s \n", t.Text(source))
 				// lines := t.Lines()
 				// fmt.Printf("LINES %#v \n", lines)
 				//for _, s := range lines.Sliced(0, lines.Len()-1) {
@@ -83,7 +89,13 @@ func main() {
 			continue
 		}
 
-		extractHeaders(doc, src, 3)
+		headers, err := extractHeaders(doc, src, 3)
+		if err != nil {
+			log.Printf("Error extracting headers: %s", err)
+		}
 
+		for _, h := range headers {
+			fmt.Printf("%d %s\n", h.Level, h.Text)
+		}
 	}
 }
